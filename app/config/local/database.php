@@ -22,13 +22,13 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'dev_mlm',
+			'host'      => '192.168.99.100',
+			'database'  => 'papix',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
+			'prefix'    => 'cns_',
 		),
 
 		'pgsql' => array(

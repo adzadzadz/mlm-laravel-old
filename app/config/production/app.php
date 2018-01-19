@@ -14,5 +14,6 @@ return array(
 	*/
 
 	'debug' => false,
+	'url'   => 'http://cns-ph.com/',
 
 );

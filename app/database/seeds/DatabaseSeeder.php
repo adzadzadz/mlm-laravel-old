@@ -12,6 +12,13 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		// $this->call('UserTableSeeder');
+		$user = User::create(array(
+		  'username' => 'pax',
+		  'firstname' => 'Papo',
+		  'lastname' => 'Saycon',
+		  'email' => 'paposaycon@yahoo.com',
+		  'password' => Hash::make('105612'),
+		));
 	}
 
 }

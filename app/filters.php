@@ -43,7 +43,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('/');
 		}
 	}
 });
@@ -87,4 +87,38 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+
+
+
+// CUSTOM
+Route::filter('suuser', function()
+{
+    if (Auth::user()->membertype != 'superuser')
+    {
+        return Redirect::to('/');
+    }
+});
+
+Route::filter('checkmaster', function()
+{
+    if (Auth::user()->im_master != 1)
+    {
+        return Redirect::to('/');
+    }
+});
+
+
+Route::filter('check_ajax', function()
+{
+	if (Request::ajax())
+	{
+		
+	}
+	else
+	{
+		return Redirect::guest('/');
+	}
+
 });

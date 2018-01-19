@@ -23,12 +23,12 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'adz_mlm',
-			'username'  => 'adz_mlm',
-			'password'  => 'Gtzkhclnejlm!234',
+			'database'  => 'papix1_cns',
+			'username'  => 'papix1_cns',
+			'password'  => 'cimIyDibXO',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'    => 'lv_',
+			'prefix'    => 'cns_',
 		),
 
 		'pgsql' => array(

@@ -43,6 +43,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $position;
 	}
 
+	public static function countUserdownline($id)
+	{
+		$position = DB::table('users')->where('directupline', '=', $id)->get();
+
+		return count($position);
+	}
+
+	public static function findUser($keyword)
+	{
+		$users = User::where('votes', '>', 100)->take(10)->get();
+	}
+
+	public static function getUser($id)
+	{
+		return User::find($id);
+	}
+
 	public static function updateUser($id, $data)
 	{
 		$user = User::find($id);
@@ -56,18 +73,43 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static function getUsers()
 	{
-		$data = false;
+		$data = array();
 
 		$users = User::all();
 		foreach ($users as $user) {
 			$data[] = array(
 				'id'      => $user['id'],
+				'username'=> $user['username'],
 				'name'    => $user['firstname'] . " " . $user['middlename'] . " " . $user['lastname'],
 				'email'   => $user['email'],
 			);
 		}
 
 		return $data;
+	}
+
+	public static function getMasteraccounts()
+	{
+		$data = array();
+
+		$users = User::where('im_master', '=', 1)->get();
+		foreach ($users as $user) {
+			$data[] = array(
+				'id'      => $user['id'],
+				'username'=> $user['username'],
+				'name'    => $user['firstname'] . " " . $user['middlename'] . " " . $user['lastname'],
+				'email'   => $user['email'],
+			);
+		}
+
+		return $data;
+	}
+
+	public static function getChildrenUsers($id)
+	{
+		$users = User::where('master_account', '=', $id)->get();
+
+		return $users;
 	}
 
 	public static function getDownline($id, $position)
@@ -78,207 +120,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	// This is the Unilevel downline
-	public static function getDownline_delegated($id)
+	public static function getUnilevel($id)
 	{
-		$users = User::where('directupline', '=', $id)->get();
+		$downline = User::where('sponsor', '=', $id)->get();
 
-		foreach ($users as $user) {
-			$data['lvl1'][] = array(
-				'id' => $user->id,
-				'name' => $user->firstname . ' ' . $user->lastname,
-				'pointvalue' => $user->pointvalue,
-				'position' => $user->position,
-			);
-			// LEVEL 2 MEMBERS
-			$lvl2 = User::where('directupline', '=', $user->id)->get();
+		return $downline;
+	}
 
-			foreach ($lvl2 as $user) {
-				$data['lvl2'][] = array(
-					'id' => $user->id,
-					'name' => $user->firstname . ' ' . $user->lastname,
-					'pointvalue' => $user->pointvalue,
-					'position' => $user->position,
-				);
+	public static function getCnsstatement($id)
+	{
+		$downline = User::where('directupline', '=', $id)->get();
 
-				// LEVEL 3 MEMBERS
-				$lvl3 = User::where('directupline', '=', $user->id)->get();
-
-				foreach ($lvl3 as $user) {
-					$data['lvl3'][] = array(
-						'id' => $user->id,
-						'name' => $user->firstname . ' ' . $user->lastname,
-						'pointvalue' => $user->pointvalue,
-						'position' => $user->position,
-					);
-
-					// LEVEL 4 MEMBERS
-					$lvl4 = User::where('directupline', '=', $user->id)->get();
-
-					foreach ($lvl4 as $user) {
-						$data['lvl4'][] = array(
-							'id' => $user->id,
-							'name' => $user->firstname . ' ' . $user->lastname,
-							'pointvalue' => $user->pointvalue,
-							'position' => $user->position,
-						);
-
-						// LEVEL 5 MEMBERS
-						$lvl5 = User::where('directupline', '=', $user->id)->get();
-
-						foreach ($lvl5 as $user) {
-							$data['lvl5'][] = array(
-								'id' => $user->id,
-								'name' => $user->firstname . ' ' . $user->lastname,
-								'pointvalue' => $user->pointvalue,
-								'position' => $user->position,
-							);
-
-							// LEVEL 6 MEMBERS
-							$lvl6 = User::where('directupline', '=', $user->id)->get();
-
-							foreach ($lvl6 as $user) {
-								$data['lvl6'][] = array(
-									'id' => $user->id,
-									'name' => $user->firstname . ' ' . $user->lastname,
-									'pointvalue' => $user->pointvalue,
-									'position' => $user->position,
-								);
-
-								// LEVEL 7 MEMBERS
-								$lvl7 = User::where('directupline', '=', $user->id)->get();
-
-								foreach ($lvl7 as $user) {
-									$data['lvl7'][] = array(
-										'id' => $user->id,
-										'name' => $user->firstname . ' ' . $user->lastname,
-										'pointvalue' => $user->pointvalue,
-										'position' => $user->position,
-									);
-
-									// LEVEL 8 MEMBERS
-									$lvl8 = User::where('directupline', '=', $user->id)->get();
-
-									foreach ($lvl8 as $user) {
-										$data['lvl8'][] = array(
-											'id' => $user->id,
-											'name' => $user->firstname . ' ' . $user->lastname,
-											'pointvalue' => $user->pointvalue,
-											'position' => $user->position,
-										);
-
-										// LEVEL 9 MEMBERS
-										$lvl9 = User::where('directupline', '=', $user->id)->get();
-
-										foreach ($lvl9 as $user) {
-											$data['lvl9'][] = array(
-												'id' => $user->id,
-												'name' => $user->firstname . ' ' . $user->lastname,
-												'pointvalue' => $user->pointvalue,
-												'position' => $user->position,
-											);
-
-											// LEVEL 10 MEMBERS
-											$lvl10 = User::where('directupline', '=', $user->id)->get();
-
-											foreach ($lvl10 as $user) {
-												$data['lvl10'][] = array(
-													'id' => $user->id,
-													'name' => $user->firstname . ' ' . $user->lastname,
-													'pointvalue' => $user->pointvalue,
-													'position' => $user->position,
-												);
-
-												// LEVEL 11 MEMBERS
-												$lvl11 = User::where('directupline', '=', $user->id)->get();
-
-												foreach ($lvl11 as $user) {
-													$data['lvl11'][] = array(
-														'id' => $user->id,
-														'name' => $user->firstname . ' ' . $user->lastname,
-														'pointvalue' => $user->pointvalue,
-														'position' => $user->position,
-													);
-
-													// LEVEL 12 MEMBERS
-													$lvl12 = User::where('directupline', '=', $user->id)->get();
-
-													foreach ($lvl12 as $user) {
-														$data['lvl12'][] = array(
-															'id' => $user->id,
-															'name' => $user->firstname . ' ' . $user->lastname,
-															'pointvalue' => $user->pointvalue,
-															'position' => $user->position,
-														);
-
-														// LEVEL 13 MEMBERS
-														$lvl13 = User::where('directupline', '=', $user->id)->get();
-
-														foreach ($lvl13 as $user) {
-															$data['lvl13'][] = array(
-																'id' => $user->id,
-																'name' => $user->firstname . ' ' . $user->lastname,
-																'pointvalue' => $user->pointvalue,
-																'position' => $user->position,
-															);
-
-															// LEVEL 14 MEMBERS
-															$lvl14 = User::where('directupline', '=', $user->id)->get();
-
-															foreach ($lvl14 as $user) {
-																$data['lvl14'][] = array(
-																	'id' => $user->id,
-																	'name' => $user->firstname . ' ' . $user->lastname,
-																	'pointvalue' => $user->pointvalue,
-																	'position' => $user->position,
-																);
-
-																// LEVEL 15 MEMBERS
-																$lvl15 = User::where('directupline', '=', $user->id)->get();
-
-																foreach ($lvl15 as $user) {
-																	$data['lvl15'][] = array(
-																		'id' => $user->id,
-																		'name' => $user->firstname . ' ' . $user->lastname,
-																		'pointvalue' => $user->pointvalue,
-																		'position' => $user->position,
-																	);
-
-																}
-
-															}
-
-														}
-
-													}
-
-												}
-
-											}
-
-										}
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-			
-		}
-
-		return $data;
+		return $downline;
 	}
 
 	public static function login($data)
 	{
-		if (Auth::attempt($data))
+		if (Auth::attempt($data, false))
 		{	
 			return true;
 		}
@@ -292,6 +150,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		Auth::logout();
 		Session::flush();
+	}
+
+	public static function getCount()
+	{
+		$count = DB::table('codes_user_limit')
+					->where('id', '=', Auth::user()->id)
+                    ->get();
+
+        return $count;
 	}
 	
 }

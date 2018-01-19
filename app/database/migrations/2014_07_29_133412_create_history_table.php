@@ -12,13 +12,15 @@ class CreateHistoryTable extends Migration {
 	 */
 	public function up()
 	{
-		if (!Schema::hasTable('history')){
-			Schema::create('history', function(Blueprint $table)
-			{
-				$table->increments('id');
-				$table->timestamps();
-			});
-		}
+		Schema::create('history', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('item');
+			$table->integer('quantity');
+			$table->double('executed_by');
+			$table->double('executed_for');
+			$table->timestamps();
+		});
 	}
 
 	/**

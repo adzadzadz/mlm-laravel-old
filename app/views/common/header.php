@@ -1,95 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<title><?= $page_title ?> - MLM</title>
-	<?= HTML::style('/assets/bootstrap-3.1.1-dist/css/bootstrap.min.css') ?>
-	<?= HTML::style('/assets/css/style.css') ?>
-	
-	<!-- Placed temporarily -->
-	<?= Config::get('mlm_config.get_jquery') ?>
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title><?= $page_title ?> - PBB150</title>
+    <?= HTML::style('/jquery-ui/jquery-ui.min.css') ?>
+    <?= HTML::style('/theme/assets/css/bootstrap.css') ?>
+    <?= HTML::style('/theme/assets/css/style.css') ?>
+    <?= HTML::style('/chosen/chosen.min.css') ?>
+    <?= HTML::style('/assets/glyph/css/glyph.min.css') ?>
+    <?= HTML::style('/assets/css/style.css') ?>
+    <!--[if lt IE 9]>
+    <script src="assets/bootstrap/js/html5shiv.min.js"></script>
+    <script src="assets/bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+    <?= HTML::script('/theme/assets/js/modernizr.custom.js') ?>
+    <?= HTML::script('/theme/assets/js/device.min.js') ?>
+    <?= HTML::script('/theme/assets/js/jquery.min.js') ?>
+    <?= HTML::script('/jquery-ui/jquery-ui.min.js') ?>
 </head>
-<body>
-<div class="container">
+<body class="header-light navbar-light navbar-fixed with-topbar withAnimation">
 
-<header>
-	<nav class="navbar navbar-inverse" role="navigation">
-		<div class="navbar-header">
-		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			    <span class="sr-only">Toggle navigation</span>
-			    <span class="icon-bar"></span>
-			    <span class="icon-bar"></span>
-			    <span class="icon-bar"></span>
-		    </button>
-		    <a class="navbar-brand" href="<?= route('home'); ?>">MLM</a>
-	    </div>
-		<div class="main-menu">
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			    <ul class="nav navbar-nav">
-			        <li class="<?php if($page_title == 'Home') { echo 'active'; } ?>"><a href="<?= route('home'); ?>">Home</a></li>
-			        <?php if (Auth::check()){  ?>
-			        <li class="<?php if($page_title == 'Profile') { echo 'active'; } ?>"><a href="<?= route('profile'); ?>">Profile</a></li>
-			        <li class="<?php if($page_title == 'Members') { echo 'active'; } ?>"><a href="<?= route('members'); ?>">Members</a></li>
-			        <?php } ?>
-			        <!-- <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-			            <ul class="dropdown-menu" role="menu">
-			                <li><a href="#">Action</a></li>
-			                <li><a href="#">Another action</a></li>
-			                <li><a href="#">Something else here</a></li>
-			                <li class="divider"></li>
-			                <li><a href="#">Separated link</a></li>
-			                <li class="divider"></li>
-			                <li><a href="#">One more separated link</a></li>
-			            </ul>
-			        </li> -->
-			    </ul>
-
-			    <ul class="nav navbar-nav navbar-right">
-			        <li><button type="button" class="btn-login btn btn-primary navbar-btn" data-toggle="modal" data-target="#register_modal">Register</button></li>
-			        <li>
-			        <?php if (Auth::check()) { ?>
-			        <button id="btn-logout" type="button" href="<?= route('logout') ?>"class="btn-login btn btn-primary navbar-btn">Logout</button>
-			        <?php } else { ?>
-			        <button type="button" class="btn-login btn btn-primary navbar-btn" data-toggle="modal" data-target="#login_modal">Login</button>
-			        <?php } ?>
-			        </li>
-			    </ul>
-		</div>
-	</nav>	 
+<header class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 hidden-sm hidden-xs">
+                <div class="text-wrapper">
+                    <?php if (Auth::check()){  ?> (<?= Config::get("mlm_config.id_prefix") . Auth::user()->id ?>) <strong><?= Auth::user()->firstname . ' ' . Auth::user()->middlename . ' ' . Auth::user()->lastname ?></strong> <?php }else {?> Contact us: <i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:cns_ph@yahoo.com">PBB150@yahoo.com</a> <?php } ?>
+                </div>
+            </div>
+            <div class="col-md-6 text-right">
+                <div class="text-wrapper">
+                     <a href="#" id='register-btn'><i class="fa fa-fw fa-plus-circle"></i> Register</a>
+                </div>
+                <div class="text-wrapper">
+                    <?php if (Auth::check()) { ?>
+                    <a id="btn-logout" href="<?= route('logout') ?>"><i class="fa fa-fw fa-user"></i>Logout</a>
+                    <?php } else { ?>
+                    <a href="#" data-toggle="modal" data-target="#login_modal"><i class="fa fa-fw fa-user"></i>Login</a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
+<div class="container"></div>
+
+<nav class="navbar yamm" role="navigation">
+<div class="container">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="hidden-xs">
+    <a class="navbar-brand" href="<?= route('home'); ?>">PBB 150 Online System</a>
+</div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse no-transition" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav navbar-right">
+<li class="<?php if($page_title == 'Home') { echo 'active'; } ?>"><a href="<?= route('home'); ?>">Home</a></li>
+<?php if (Auth::check()){  ?>
+<li class="<?php if($page_title == 'Profile') { echo 'active'; } ?>"><a href="<?= route('profile'); ?>">Profile</a></li>
+<?php if (Auth::user()->membertype == 'superuser') { ?> 
+<li class="dropdown <?php if($page_title == 'Members' || $page_title == 'Settings' || $page_title == 'Earnings' || $page_title == 'Withdrawals') echo 'active'; ?>">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <i class="fa fa-fw fa-angle-down"></i></a>
+    <ul class="dropdown-menu yamm-dropdown">
+        <li>
+            <div class="yamm-content">
+                <div class="row">
+                    <div class="col-sm-7">
+                                        <span class="navbar-title">
+                                            Admin Options
+                                        </span>
+                        <ul class="list-unstyled">
+                            <li><a href="<?= route('sueditprofile'); ?>"><i class="fa fa-fw fa-angle-right"></i>Edit User Profile</a></li>
+                            <li><a href="<?= route('sushowearnings'); ?>"><i class="fa fa-fw fa-angle-right"></i>Earnings</a></li>
+                            <li><a href="<?= route('sushowwithdrawals'); ?>"><i class="fa fa-fw fa-angle-right"></i>Withdrawals</a></li>
+                            <li><a href="<?= route('susettings'); ?>"><i class="fa fa-fw fa-angle-right"></i>Settings</a></li>
+                        </ul>
+                    </div>
+                    <!-- <div class="col-sm-3"></div> -->
+                    <div class="col-sm-5">
+                                        <span class="navbar-title">
+                                            Frontend Options
+                                        </span>
+                        <ul class="list-unstyled">
+                            <li><a href="<?= route('suaffiliates'); ?>"><i class="fa fa-fw fa-angle-right"></i>Add Affiliate</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</li>
+<?php } ?>
+<?php } else {?>
+
+<?php } ?>
+<li class="<?php if($page_title == 'Marketing Plan') { echo 'active'; } ?>"><a href="<?= route('marketingplan'); ?>">Opportunity</a></li>
+<?php if (Auth::check()){  ?>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Affiliates <i class="fa fa-fw fa-angle-down"></i></a>
+    <ul class="dropdown-menu yamm-dropdown">
+        <li>
+            <div class="yamm-content">
+                <div class="row">
+                    <div class="col-sm-5 nav-image" style="text-align:center;">
+                        <img src="<?= asset('assets/imgs/cns-logo-9.png') ?>" alt="image"/ width="80%">
+                    </div>
+                    <div class="col-sm-7">
+                                        <span class="navbar-title">
+                                            Affiliates Menu
+                                        </span>
+                        <ul class="list-unstyled">
+                            <li><a href="<?= route('affiliate_list','luzon') ?>"><i class="fa fa-fw fa-angle-right"></i>Luzon</a></li>
+                            <li><a href="<?= route('affiliate_list','visayas') ?>"><i class="fa fa-fw fa-angle-right"></i>Visayas</a></li>
+                            <li><a href="<?= route('affiliate_list','mindanao') ?>"><i class="fa fa-fw fa-angle-right"></i>Mindanao</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</li>
+<?php } ?>
+<li class="<?php if($page_title == 'About Us') { echo 'active'; } ?>"><a href="<?= route('aboutus'); ?>">About us</a></li>
+</ul>
+
+</div><!-- /.navbar-collapse
+</div><!-- /.container-fluid -->
+</nav>
+
+<div class="container"></div>
+
+<div id="wrapper">
+
+<!-- VISIBLE COPY OF THE HEADER ONLY IN MOBILE NEEDED FOR THE SIDE MENU EFFECT -->
+
+<div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header visible-xs">
+        <a class="navbar-brand" href="<?= route('home'); ?>">PBB150</a>
+        <button type="button" class="navbar-toggle" id="sidebar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+</div>
+
+<!-- END -->
+
+
 
 <!-- Login Modal -->
 <div class="modal fade" id="login_modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title"><b>Login</b></h4>
-			</div>
-			<div class="modal-body">
-				<div class="registration-form">
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="username">Email or Username</label>
-							<input type="text" class="form-control" name="username" id="username"  autocomplete="off">
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="login-password">Password</label>
-							<input type="password" class="form-control" name="login-password" id="login-password">
-						</div>						
-					</div>
-				</div>
-				<div class="login-error"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="submit-login">Login</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><b>Login</b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="registration-form">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="username">Email or Username</label>
+                            <input type="text" class="form-control" name="username" id="username"  autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="login-password">Password</label>
+                            <input type="password" class="form-control" name="login-password" id="login-password">
+                        </div>                      
+                    </div>
+                </div>
+                <div class="login-error"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submit-login">Login</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- Login Modal - END-->
 
@@ -97,234 +196,123 @@
 
 <!-- Register Modal -->
 <div class="modal fade" id="register_modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title">Registration</h4>
-			</div>
-			<div class="modal-body">.
-				<div class="row reg-alert"></div>
-				<div class="registration-form">
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="firstname">First Name</label>
-							<input type="text" class="form-control" name="firstname" id="firstname">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="lastname">Last Name</label>
-							<input type="text" class="form-control" name="lastname" id="lastname">
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="reg-username">Username</label>
-							<input type="text" class="form-control" name="reg-username" id="reg-username"  autocomplete="off">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="activationcode">Activation Code</label>
-							<input type="text" class="form-control" name="activationcode" id="activationcode">
-						</div>						
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="direct_upline">Direct Upline</label>
-							<button class="btn btn-sm btn-danger btn-dul">Click me</button>
-							<select name="direct_upline" class="form-control" id="direct_upline" style="display:none;">
-								
-							</select>
-						</div>
-						<div class="form-group col-md-6">
-							<label for="sponsor">Sponsor</label>
-							<button class="btn btn-sm btn-danger btn-sponsor">Click me</button>
-							<select class="form-control" name="sponsor" id="sponsor" style="display:none;">
-								
-							</select>
-						</div>						
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="password">Password</label>
-							<input type="password" class="form-control" name="password" id="password">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="confirmpassword">Confirm Password</label>
-							<input type="password" class="form-control" name="confirmpassword" id="confirmpassword">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="submit-registration">Submit</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Registration</h4>
+            </div>
+            <div class="modal-body registration">.
+
+            </div>
+            <div class="modal-footer">
+               
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- Register Modal - END-->
 
+<!-- check Activation Code Modal -->
+<div class="modal fade" id="check_activationcode">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Activation Code Verification</h4>
+            </div>
+            <div class="modal-body check_activationcode_body">.
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">Activation code</div>
+                                <input id="activation-code-input" class="form-control" type="text" placeholder="Enter activation code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">Close</button>
+                <button id="activation-code-check-submit" class="btn btn-md btn-primary">Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- check Activation Code Modal - END-->
 
 <!-- Login script -->
 <script>
-	$(document).ready(function () {
+    $(document).ready(function () {
 
-		$('#submit-login').click(function () {
-			var $username = $('#username').val(),
-				$password = $('#login-password').val();
+        $('#register-btn').click(function () {
 
-			$.ajax({
-				url:"<?= action('AccountController@login') ?>",
-				type: 'POST',
-				data: {
-					username : $username,
-					password : $password,
-				},
-				beforeSend:function(){
-					$('#submit-login').html('Verifying..');
-				},
-				success:function(result){
-				    if(result == 'verified') {
-				    	location.reload(true); 
-				    }
-				    else {
-				    	$('.login-error').html('<h4 style="color: red;">' + result + '</h4>');
-				    	$('#submit-login').html('Login');
-				    }
-				}
-			});
-		});
+             $('#check_activationcode').modal('toggle');
 
-		$('#btn-logout').click(function () {
-			$.ajax({
-				url:"<?= action('AccountController@logout') ?>",
-				type: 'POST',
-				success:function(){
-					location.reload(true); 
-				}
-			});
-		});
-	});
-</script>
+        });
+        
+        $('#activation-code-check-submit').click(function () {
 
-<!-- Registration script -->
-<script>
-	$(document).ready(function () {
+            var activationcode = $('#activation-code-input').val();
 
-		$('.btn-dul').click(function () {
-			getUsers('#direct_upline');
-			$(this).fadeOut('fast');
-		});
-		$('.btn-sponsor').click(function () {
-			getUsers('#sponsor');
-			$(this).fadeOut('fast');
-		});
-		function getUsers(insert) {
-			$.ajax({
-				url:"<?= action('AccountController@getUsers') ?>",
-				type: 'POST',
-				data: {
+            $('#check_activationcode').modal('toggle');
 
-				},
-				success:function(result){
-					var data = JSON.parse(result);
-					var htmldata;
-					$.each(data, function(i, item) {
-						htmldata += '<option value="' + item.id + '">' + item.name + ' - ID: <?= Config::get("mlm_config.id_prefix"); ?>' + item.id + '</option>';
-					});
-					$(insert).html(htmldata);
-					$(insert).slideDown('fast');
-				}
+            getRegistrationForm(activationcode);
 
-			});
-		}
+        });
 
-		$('#submit-registration').click(function () {
+        function getRegistrationForm(code) {
+            $.ajax({
+                url:"<?= route('registration') ?>",
+                type: 'POST',
+                data: {
+                    activationcode : code,
+                },
+                beforeSend:function(){
+                    $('.registration').html('<div style="text-align: center;"><img class="earnings-loader" src=\'<?= asset("assets/imgs/loading-img.gif") ?>\' alt="Loading" /></div>');
+                },
+                success:function(result){
+                    $('.registration').html(result);
+                    $('#register_modal').modal('toggle');
+                }
+            });            
+        }
 
-			var $firstname = $('#firstname').val(),
-				$lastname = $('#lastname').val(),
-				$username = $('#reg-username').val(),
-				$activationcode = $('#activationcode').val(),
-				$password = $('#password').val(),
-				$confirmpassword = $('#confirmpassword').val(),
-				$direct_upline = $('#direct_upline').val(),
-				$sponsor = $('#sponsor').val(),
-				alertbox = $('#register_modal .reg-alert'),
-				errormsg = '';
+        $('#submit-login').click(function () {
+            var $username = $('#username').val(),
+                $password = $('#login-password').val();
 
-			validateName($firstname) || addError('*First name should be at least 2 characters');
-			validateName($lastname) || addError('*Last name should be at least 2 characters');
-			validateUsername($username) || addError('*Username should be at least 6 characters');
-			validateSponsor($direct_upline) || addError('*Please select an Upline');
-			validateSponsor($sponsor) || addError('*Please select a Sponsor');
-			validatePassword($password) || addError('*Password should be at least 8 characters');
-			$password == $confirmpassword || addError('*password does not match');
-			
-			alertbox.html('<div class="alert alert-warning" role="alert">' + errormsg + '</div>');
+            $.ajax({
+                url:"<?= action('AccountController@login') ?>",
+                type: 'POST',
+                data: {
+                    username : $username,
+                    password : $password,
+                },
+                beforeSend:function(){
+                    $('#submit-login').html('Verifying..');
+                },
+                success:function(result){
+                    if(result == 'verified') {
+                        location.reload(true); 
+                    }
+                    else {
+                        $('.login-error').html('<h4 style="color: red;">' + result + '</h4>');
+                        $('#submit-login').html('Login');
+                    }
+                }
+            });
+        });
 
-			errormsg == '' && signUp();
-			
-			// Validation
-			function addError(data) {
-				errormsg += data + "<br>";
-			}
-			function validateName(data) {
-				var pattern = /^[a-z0-9]{2,}/i;
-				return pattern.test(data);
-			}
-			function validateUsername(data) {
-				var pattern = /^[a-z0-9]{4,}/i;
-				return pattern.test(data);
-			}
-			function validateEmail(data) {
-				var pattern = /^[a-z0-9._-]+@[a-z]+.[a-z.]{2,5}$/i;
-				return pattern.test(data);
-			}
-			function validatePassword(data) {
-				if (data != undefined){
-					if (data.length > 7) {
-						return true;
-					}
-				}
-				else {
-					return false;
-				}
-			}
-			function validateSponsor(data) {
-				if(data != null){
-					if (data.length != 0) {
-						return true;
-					}
-				}
-				else {
-					return false;
-				}
-			}
-			function signUp(){
-				$.ajax({
-					url:"<?= action('AccountController@addUser') ?>",
-					type: 'POST',
-					data: {
-						firstname : $firstname,
-						lastname : $lastname,
-						username : $username,
-						activationcode : $activationcode,
-						password : $password,
-						direct_upline : $direct_upline,
-						sponsor : $sponsor,
-					},
-					beforeSend:function(){
-						$('.registration-form').slideUp('fast');
-					},
-					success:function(result){
-					    $('.registration-form input').val('');
-					    $('#register_modal .modal-body').html('<div class="alert alert-warning">' + result + '</div><?php if (Auth::check()) { ?><h3><b>Refresh page to update codes status.</b></h3><?php } ?>');
-					    $('#submit-registration').fadeOut('fast');
-
-					}
-
-				});
-			}
-		})
-
-	});
+        $('#btn-logout').click(function () {
+            $.ajax({
+                url:"<?= action('AccountController@logout') ?>",
+                type: 'POST',
+                success:function(){
+                    location.reload(true); 
+                }
+            });
+        });
+    });
 </script>

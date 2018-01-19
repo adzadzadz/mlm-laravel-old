@@ -1,12 +1,177 @@
 /*General*/
-section {
-	margin-bottom: 25px;
+html {
+	background: #EBEEF2;
+	height: 100%;
+}
+body {
+	background: #EBEEF2;
+	height: 100%;
+	font-family: 'Signika', sans-serif;
+}
+.container-fluid {
+	padding: 50px 50px;
+}
+.page {
+	min-height: 500px;
+}
+.overflow-x {
+	overflow: scroll;
+	overflow-y: hidden;
+	scrollbar-base-color: #ffeaff;
 }
 
+/*Member Formatting*/
+.member-box {
+	position: static;
+	overflow: hidden;
+	text-align: center;
+	background: #fff;
+	border: #333 solid 1px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	padding: 5px 5px;
+	width: 110px;
+	height: 100px;
+	-webkit-transition: width 0.5s, height 0.5s, background 0.5s, border 0.5;
+	-moz-transition: width 0.5s, height 0.5s, background 0.5s, border 0.5;
+	-o-transition: width 0.5s, height 0.5s, background 0.5s, border 0.5;
+	transition: width 0.5s, height 0.5s, background 0.5s, border 0.5;
+}
+
+.member-box:hover {
+	border: #239be0 solid 2px;
+}
+
+/*Text Formatting*/
+.text-center {
+	text-align: center;
+}
+thead, .input-title{
+	font-weight: bolder;
+}
+
+/*HEADER*/
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 15;
+}
+header .navbar {
+	z-index: 15;
+}
+header nav {
+	background: #57D16A;
+	color: #D6D8DA;
+}
+header nav a {
+	color: #fff;
+}
+
+/*CONTENT*/
+.content {
+	margin-top: 60px;
+}
+.hide-element {
+	display: none;
+}
+
+/*HOME - Dashboard*/
+#dashboard .panel-heading {
+	background: #454E59;
+}
+.minibox {
+	padding: 0 10px 0 10px;
+	margin-bottom: 10px;
+}
+.minibox .wrap {
+	background: #FFFFFF;
+	height: 140px;
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.75);
+}
+.minibox .title {
+	padding: 7px 25px;
+	color: #fff;
+}
+.minibox .body {
+	padding: 5px 10px;
+}
+.minibox .icon {
+	padding-top: 25px;
+	color: #afaeae;
+	font-size: 50px;
+	font-weight: bold;
+}
+.minibox.earnings .title {
+	background: #DEB25C;
+}
+.minibox.downlines .title {
+	background: #5CCDDE;
+}
+.minibox.others .title {
+	background: #DE815C;
+}
+
+
+/*aside.left*/
+aside.left {
+	background: #454E59;
+	height: 100%;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	z-index: 10;
+	padding: 60px 0px;
+}
+aside.left ul {
+	padding-left: 0px;
+}
+aside.left li {
+	list-style: none;
+}
+aside.left li a {
+	display: block;
+	padding: 10px 20px;
+	color: #e5e5e5;
+}
+aside.left li a:hover {
+	background: #74787c;
+	text-decoration: none;
+}
+
+/*Super User*/
+.superuser-navigation .panel-heading {
+	background: #DEB25C;
+}
+
+
+/*Unilevel*/
+.unilevel-total {
+	/*background: #57D16A;*/
+	color: #000;
+	font-weight: bold;
+}
+
+
+
+/*Modals*/
+.small-modal-margin {
+	margin: 10px 10px !important;
+}
 
 /*Backgrounds*/
 .box-dark {
 	background: rgba(0,0,0,0.9);
+}
+.datacontent-bg1 {
+	background: url('../imgs/datacontent-bg1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100%;
 }
 
 /*NOT SURE*/
@@ -14,13 +179,70 @@ section {
 	margin-right: 10px;
 }
 
-.membertree-table div {
+
+/*Binary Area*/
+.binary-center {
+	margin-right: auto;
+	margin-left: auto;
+}
+.binary-user {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	min-height: 70px;
+	float: left;
+}
+.binary-user img {
+	max-width: 25px;
+}
+.binary-empty {
+	width: 50px;
+}
+
+.glyphicon {
 	margin-left: auto;
 	margin-right: auto;
-	min-height: 50px;
 }
 
-.membertree-table div {
-	padding:  0 0;
+
+/*Loader*/
+.earnings-loader {
+	max-width: 60px;
+}
+.small-loader {
+	max-width: 25px;
 }
 
+/*LINKS*/
+.fake-link {
+	cursor: pointer;
+}
+
+/*THEME SETTING CHANGES*/
+.modal {
+	z-index: 99999 !important;
+}
+.modal-content {
+	margin-top: 120px;
+}
+.modal-backdrop {
+	z-index: 2 !important;
+}
+.panel-title {
+	margin-top: 0px !important;
+}
+.navbar-header {
+	margin-top: 40px !important;
+}
+.mobile-menu-bar {
+	margin-top: 40px !important;
+}
+.bg-gray {
+	background: #333333;
+	padding: 15px 15px;
+	color: #ccc;
+}
+.bg-banner {
+	background: rgba(0,0,0,0.5);
+	padding: 15px 15px;
+}

@@ -15,8 +15,8 @@ class CreateEarningsTable extends Migration {
 		Schema::create('earnings', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
-			$table->string('earnings');
+			$table->double('user_id');
+			$table->double('earnings');
 			$table->timestamps();
 		});
 	}

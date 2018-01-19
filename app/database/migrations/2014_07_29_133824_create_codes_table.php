@@ -12,18 +12,16 @@ class CreateCodesTable extends Migration {
 	 */
 	public function up()
 	{
-		if (!Schema::hasTable('codes')){
-			Schema::create('codes', function(Blueprint $table)
-			{
-				$table->increments('id');
-			    $table->string('membertype');
-			    $table->string('activationcode');
-			    $table->unique('activationcode');
-			    $table->string('sponsor');
-			    $table->string('status');
-			    $table->timestamps();
-			});
-		}
+		Schema::create('codes', function(Blueprint $table)
+		{
+			$table->increments('id');
+		    $table->string('membertype');
+		    $table->string('activationcode');
+		    $table->unique('activationcode');
+		    $table->double('sponsor');
+		    $table->string('status');
+		    $table->timestamps();
+		});
 	}
 
 	/**

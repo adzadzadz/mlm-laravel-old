@@ -14,6 +14,6 @@ return array(
 	*/
 
 	'debug' => true,
-	'url'   => 'http://localhost/adz_websites/adzbite_mlm/web/',
+	'url'   => 'http://localhost/cns-ph.com/public/',
 
 );

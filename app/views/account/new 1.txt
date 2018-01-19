@@ -1,0 +1,150 @@
+for ($group=0; $group < $prevcount; $group++) { 
+						
+						$makelevel = $level + 1;
+
+						if (isset($lvl[$level])) 
+						{
+							$user = User::getUnilevel($lvl[$level][$group]['id']);
+							
+							foreach ($user as $data) {
+								$lvl[$makelevel][] = array(
+									'id'        => $data->id,
+									'username'  => $data->username,
+									'firstname' => $data->firstname,
+									'middlename'=> $data->middlename,
+									'lastname'  => $data->lastname,
+									'vp'        => $data->vp,
+									'sponsor'   => $data->sponsor,
+									'directupline' => $data->directupline,
+								);
+
+							}
+
+							$total_members = $total_members + 1;
+						}
+						else
+						{
+							$level = 30;
+						}
+					}
+				}
+
+				$withdrew = Withdraw::getRequests(Auth::user()->id);
+				$total_withdrew = 0;
+			    foreach ($withdrew as $each) {
+			    	$total_withdrew = $total_withdrew + $each['request'];
+			    }
+
+				return View::make('modules.unilevel', array( 
+					'lvl'      => $lvl,
+					'limit'    => 31,
+					'currency' => 'PhP',
+					'withdrew' => $total_withdrew,
+					'earnings' => $total_members,
+					'total_members' => $total_members,
+				))->render();
+			}
+			else
+			{
+				return View::make('errors.requiredlogin', array(
+					'message' => 'You need to login to view this page.',
+				))->render();
+			}
+		}
+xxx		else
+		{
+			return Redirect::to('/')->with('message', 'You need to login.');
+		}
+	}
+
+xxx	public function getUnilevelStatement($id)
+	{
+		if (Auth::check()) 
+		{ 
+			$total_earnings = 0;
+			$totalVp = 0;
+			$count = 0;
+			$levelLimit = 9;
+			if (Auth::check()) 
+			{ 
+				$master = User::find($id);
+				$total_members = -1;
+				$total_earnings = $total_earnings + 0;
+
+				$lvl['0']['0'] = array(
+					'id'        => $master->id,
+					'username'  => $master->username,
+					'firstname' => $master->firstname,
+					'middlename'=> $master->middlename,
+					'lastname'  => $master->lastname,
+					'vp'        => $master->vp,
+					'earnings'  => 0,
+					'sponsor'   => $master->sponsor,
+					'directupline' => $master->directupline,
+				);
+
+				for ($level=0; $level < $levelLimit; $level++) { 
+					
+					if (isset($lvl[$level])) 
+					{
+						if ($level > 1) 
+						{
+							$prevcount = count($lvl[$level]);
+						}
+						else if ($level == 0) 
+						{
+							$prevcount = 1;
+						}
+						else if ($level == 1) 
+						{
+							$prevcount = count($lvl[$level]);
+						}
+					}
+					
+					for ($group=0; $group < $prevcount; $group++) { 
+						
+						$makelevel = $level + 1;
+
+						if (isset($lvl[$level])) 
+						{
+							$user = User::getUnilevel($lvl[$level][$group]['id']);
+							
+							foreach ($user as $data) {
+
+								$earnings = 0;
+								$lvlfixfifference = 1;
+								if ($makelevel == 1) {
+									$earnings = $data->vp;
+									$total_earnings = $total_earnings + $earnings;
+								} elseif ($makelevel > 1-$lvlfixfifference && $makelevel <= 4) {
+									$earnings = $data->vp * .5;
+									$total_earnings = $total_earnings + $earnings;
+								} elseif ($makelevel > 4-$lvlfixfifference && $makelevel <= 8) {
+									$earnings = $data->vp * .25;
+									$total_earnings = $total_earnings + $earnings;
+								}
+
+								$totalVp = $totalVp + $data->vp;
+
+								$lvl[$makelevel][] = array(
+									'id'        => $data->id,
+									'username'  => $data->username,
+									'firstname' => $data->firstname,
+									'middlename'=> $data->middlename,
+									'lastname'  => $data->lastname,
+									'vp'        => $data->vp,
+									'earnings'  => $earnings,
+									'sponsor'   => $data->sponsor,
+									'directupline' => $data->directupline,
+								);
+
+							}
+
+							$total_members = $total_members + 1;
+						}
+						else
+						{
+							$level = 30;
+						}
+					}
+				}
